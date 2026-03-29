@@ -18,7 +18,7 @@ export default function Home() {
       <div id="sobre"><About /></div>
       <div id="servicos"><Services /></div>
       <div id="diferenciais"><Differentials /></div>
-      <div id="blog"><BlogPreview /></div>
+      {/* <div id="blog"><BlogPreview /></div> */}
       <div id="depoimentos"><Testimonials /></div>
       <div id="contato"><Contact /></div>
       

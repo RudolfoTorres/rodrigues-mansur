@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export function About() {
   return (
     <section className="bg-rm-cream py-24">
@@ -37,15 +39,16 @@ export function About() {
             </div>
           </div>
 
-          {/* Image Placeholder */}
-          <div className="w-full lg:w-5/12 aspect-[4/5] bg-rm-black/5 rounded-2xl border border-black/10 flex items-center justify-center p-8 text-center relative overflow-hidden group">
-            {/* Replace with AI generated or actual team photo later */}
-            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: 'url("/images/about-placeholder.png")' }} />
-            <div className="absolute inset-0 bg-rm-gold/10 mix-blend-multiply" />
-            <div className="relative z-10 p-6 bg-white/90 backdrop-blur-sm rounded-lg shadow-xl shadow-black/5">
-              <span className="font-heading font-bold text-rm-gold-dark text-xl">Nossa Equipe</span>
-              <p className="text-sm font-body mt-2 text-rm-black/70">Placeholder para foto profissional da equipe ou fundadores.</p>
-            </div>
+          {/* Image Section */}
+          <div className="w-full lg:w-5/12 aspect-[4/5] bg-rm-black/5 rounded-2xl border border-black/10 flex items-center justify-center relative overflow-hidden group shadow-lg">
+            <Image 
+              src="/images/QuemSomos.png" 
+              alt="Equipe Rodrigues Mansur - Quem Somos" 
+              fill
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+            <div className="absolute inset-0 bg-rm-gold/10 mix-blend-multiply pointer-events-none" />
           </div>
 
         </div>
