@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "./Button";
 
 export function Hero() {
@@ -15,9 +16,9 @@ export function Hero() {
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Placeholder for Graphic Logo */}
-        <div className="w-32 h-32 md:w-48 md:h-48 mb-8 border border-rm-gold/30 rounded-full flex items-center justify-center bg-rm-black/50 backdrop-blur-sm shadow-[0_0_40px_rgba(207,188,135,0.15)] opacity-0 animate-[fade-in_1s_ease-out_forwards]">
-          <span className="text-5xl md:text-7xl font-heading font-bold text-rm-gold">RM</span>
+        {/* Logo */}
+        <div className="w-32 h-32 md:w-48 md:h-48 mb-8 border border-rm-gold/30 rounded-full flex items-center justify-center bg-rm-black/50 backdrop-blur-sm shadow-[0_0_40px_rgba(207,188,135,0.15)] opacity-0 animate-[fade-in_1s_ease-out_forwards] p-4">
+          <Image src="/images/LogoRM.png" alt="Rodrigues Mansur Logo" width={160} height={160} className="w-full h-full object-contain" priority />
         </div>
 
         {/* Text Area */}

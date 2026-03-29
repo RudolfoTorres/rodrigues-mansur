@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from './Button';
 
 export function Header() {
@@ -18,7 +19,7 @@ export function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="#inicio" className="flex items-center gap-2">
-              <span className="text-2xl font-bold font-heading text-rm-gold">RM</span>
+              <Image src="/images/LogoRM.png" alt="Rodrigues Mansur Logo" width={160} height={48} className="h-12 w-auto object-contain" priority />
             </Link>
           </div>
 
