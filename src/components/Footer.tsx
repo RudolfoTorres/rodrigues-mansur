@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="bg-rm-black border-t border-rm-gold/20 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          
+
           {/* Logo Area */}
           <div className="flex items-center">
             <Image src="/images/LogoRM.png" alt="Rodrigues Mansur Logo" width={160} height={48} className="h-14 w-auto object-contain" />

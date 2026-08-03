@@ -19,7 +19,7 @@ export function Header() {
     <header className="fixed w-full z-50 bg-rm-black/95 backdrop-blur-sm border-b border-rm-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          
+
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="#inicio" className="flex items-center gap-2">
@@ -30,8 +30,8 @@ export function Header() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
+              <Link
+                key={link.name}
                 href={link.href}
                 className="text-rm-cream/80 hover:text-rm-gold transition-colors font-medium text-sm"
               >

@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from 'next/link';
 import { Button } from "./Button";
 
 export function Hero() {
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
       {/* Background with overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-rm-black/80"
         style={{
           backgroundImage: 'linear-gradient(to bottom, rgba(55, 55, 54, 0.7), rgba(55, 55, 54, 0.95)), url("/images/hero-bg-placeholder.png")',
@@ -31,7 +32,7 @@ export function Hero() {
           </h3>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold text-rm-cream leading-tight mb-6">
-            Sua Assessoria Contábil Estratégica <br className="hidden md:block" /> 
+            Sua Assessoria Contábil Estratégica <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-rm-gold to-rm-gold-dark">para o Futuro</span>
           </h1>
 
@@ -39,14 +40,17 @@ export function Hero() {
             Transformamos números em inteligência para impulsionar o seu negócio. Experiência e Inovação para sua empresa.
           </p>
 
-          <Button variant="primary" className="text-lg px-10 py-5">
-            Conheça nossas Soluções
-          </Button>
+          <Link href="#servicos" className="inline-block hover:scale-105 transition-transform duration-300">
+            <Button variant="primary" className="text-lg px-10 py-5">
+              Conheça nossas Soluções
+            </Button>
+          </Link>
         </div>
       </div>
-      
+
       {/* Custom Keyframes for Tailwind */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes fade-in {
           from { opacity: 0; transform: scale(0.95); }
           to { opacity: 1; transform: scale(1); }
