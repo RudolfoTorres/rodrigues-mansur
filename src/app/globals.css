@@ -1,20 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-rm-black: #373736;
-  --color-rm-blue: #4D6DB3;
-  --color-rm-gold: #CFBC87;
+  /* Paleta de Cores Oficial - Rodrigues Mansur */
+  --color-rm-navy: #0B2545;
+  --color-rm-navy-dark: #071930;
+  --color-rm-gold: #C5A059;
   --color-rm-gold-dark: #9A8549;
-  --color-rm-cream: #FBF1ED;
+  --color-rm-offwhite: #F8F7F2;
+  --color-rm-white: #FFFFFF;
+  --color-rm-gray-light: #E5E7EB;
 
+  /* Tipografia */
   --font-heading: var(--font-montserrat), sans-serif;
   --font-body: var(--font-inter), sans-serif;
 }
 
 body {
-  background-color: var(--color-rm-black);
-  color: var(--color-rm-cream);
+  background-color: var(--color-rm-offwhite);
+  color: var(--color-rm-navy);
   font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
 
 html {

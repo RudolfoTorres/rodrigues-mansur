@@ -1,65 +1,138 @@
-import Image from "next/image";
-import Link from 'next/link';
-import { Button } from "./Button";
+"use client";
+
+import { Button } from './Button';
 
 export function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background with overlay */}
-      <div
-        className="absolute inset-0 z-0 bg-rm-black/80"
-        style={{
-          backgroundImage: 'linear-gradient(to bottom, rgba(55, 55, 54, 0.7), rgba(55, 55, 54, 0.95)), url("/images/hero-bg-placeholder.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundBlendMode: 'overlay'
-        }}
-      />
+    <section id="inicio" className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-rm-offwhite overflow-hidden">
+      {/* Detalhes de Fundo (Gradients sutis para dar profundidade) */}
+      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-rm-gold/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-rm-navy/5 blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Logo */}
-        <div className="w-32 h-32 md:w-48 md:h-48 mb-8 border border-rm-gold/30 rounded-full flex items-center justify-center bg-rm-black/50 backdrop-blur-sm shadow-[0_0_40px_rgba(207,188,135,0.15)] opacity-0 animate-[fade-in_1s_ease-out_forwards] p-4">
-          <Image src="/images/LogoRM.png" alt="Rodrigues Mansur Logo" width={160} height={160} className="w-full h-full object-contain" priority />
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-        {/* Text Area */}
-        <div className="opacity-0 animate-[slide-in-up_1s_ease-out_0.3s_forwards]">
-          <h2 className="text-xl md:text-3xl font-heading font-bold text-rm-gold tracking-[0.2em] uppercase mb-2">
-            Rodrigues Mansur
-          </h2>
-          <h3 className="text-sm md:text-lg font-body text-rm-cream tracking-[0.3em] uppercase mb-8 opacity-80">
-            Assessoria Administrativa
-          </h3>
+          {/* Coluna de Texto / Chamada Principal */}
+          <div className="lg:col-span-7 text-left space-y-6">
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold text-rm-cream leading-tight mb-6">
-            Sua Assessoria Contábil Estratégica <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rm-gold to-rm-gold-dark">para o Futuro</span>
-          </h1>
+            {/* Badge de Destaque */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rm-white border border-rm-gold/30 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-rm-gold animate-pulse" />
+              <span className="text-xs font-semibold text-rm-navy uppercase tracking-wider font-heading">
+                Assessoria Administrativa & Contábil
+              </span>
+            </div>
 
-          <p className="max-w-3xl mx-auto text-lg md:text-xl font-body text-rm-cream/90 mb-10 leading-relaxed">
-            Transformamos números em inteligência para impulsionar o seu negócio. Experiência e Inovação para sua empresa.
-          </p>
+            {/* Título Principal */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-rm-navy tracking-tight leading-tight font-heading">
+              Sua Assessoria Contábil Estratégica{" "}
+              <span className="text-rm-gold-dark block mt-1">para o Futuro</span>
+            </h1>
 
-          <Link href="#servicos" className="inline-block hover:scale-105 transition-transform duration-300">
-            <Button variant="primary" className="text-lg px-10 py-5">
-              Conheça nossas Soluções
-            </Button>
-          </Link>
+            {/* Subtítulo / Proposta de Valor */}
+            <p className="text-lg sm:text-xl text-rm-navy/80 max-w-2xl leading-relaxed font-normal">
+              Transformamos números em inteligência para impulsionar o seu negócio.
+              Eficiência, segurança e inovação para o crescimento contínuo da sua empresa.
+            </p>
+
+            {/* Botões de Ação */}
+            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Button
+                variant="primary"
+                className="!bg-rm-navy !text-rm-white hover:!bg-rm-navy-dark !px-8 !py-4 text-sm font-semibold uppercase tracking-wider rounded-md transition-all shadow-md hover:shadow-lg font-heading"
+              >
+                Conheça Nossas Soluções
+              </Button>
+
+              <a
+                href="#contato"
+                className="inline-flex justify-center items-center px-8 py-4 text-sm font-semibold text-rm-navy hover:text-rm-gold transition-colors uppercase tracking-wider font-heading"
+              >
+                Agendar Diagnóstico →
+              </a>
+            </div>
+
+            {/* Indicadores Rápidos de Confiança */}
+            <div className="pt-8 border-t border-rm-navy/10 grid grid-cols-3 gap-4">
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-rm-navy font-heading">+100%</p>
+                <p className="text-xs text-rm-navy/70 uppercase tracking-wider">Conformidade Fiscal</p>
+              </div>
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-rm-navy font-heading">Foco</p>
+                <p className="text-xs text-rm-navy/70 uppercase tracking-wider">em Resultados</p>
+              </div>
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-rm-navy font-heading">Gestão</p>
+                <p className="text-xs text-rm-navy/70 uppercase tracking-wider">Estratégica</p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Coluna da Direita (Card Ilustrativo com Hexágono da Marca) */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-md p-8 bg-rm-white rounded-2xl shadow-xl border border-rm-gold/20 backdrop-blur-sm">
+
+              {/* Hexágono da Logo (Sem borda/fundo externo e ampliado) */}
+              <div className="absolute -top-4 -right-4 w-14 h-14">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="w-full h-full drop-shadow-sm"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  {/* 1. Novo Hexágono Mais Externo - Azul Marinho */}
+                  <polygon
+                    points="50,2 96,25 96,75 50,98 4,75 4,25"
+                    fill="none"
+                    stroke="var(--color-rm-navy, #0A192F)"
+                    strokeWidth="4"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* 2. Hexágono Intermediário - Dourado */}
+                  <polygon
+                    points="50,11 87,30 87,70 50,89 13,70 13,30"
+                    fill="none"
+                    stroke="var(--color-rm-gold, #C5A059)"
+                    strokeWidth="5"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* 3. Hexágono Interno - Azul Marinho (Seus pontos ajustados) */}
+                  <polygon
+                    points="50,20 78,35 78,65 50,80 22,65 22,35"
+                    fill="none"
+                    stroke="var(--color-rm-navy, #0A192F)"
+                    strokeWidth="5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <h3 className="text-xl font-bold text-rm-navy mb-4 font-heading">
+                Gestão Descomplicada
+              </h3>
+
+              <p className="text-sm text-rm-navy/70 mb-6 leading-relaxed">
+                Relatórios claros e planejamento tributário sob medida para que você foque no que realmente importa: <strong className="font-semibold text-rm-navy">fazer sua empresa crescer</strong>.
+              </p>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-rm-offwhite rounded-lg border border-rm-navy/5">
+                  <div className="w-8 h-8 rounded-full bg-rm-navy text-rm-white flex items-center justify-center font-bold text-xs">✓</div>
+                  <span className="text-xs font-semibold text-rm-navy">Atendimento Consultivo e Direto</span>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-rm-offwhite rounded-lg border border-rm-navy/5">
+                  <div className="w-8 h-8 rounded-full bg-rm-gold text-rm-navy flex items-center justify-center font-bold text-xs">✓</div>
+                  <span className="text-xs font-semibold text-rm-navy">Tecnologia e Automação Fiscal</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      {/* Custom Keyframes for Tailwind */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes fade-in {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes slide-in-up {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}} />
     </section>
   );
 }

@@ -9,7 +9,7 @@ export function Footer() {
 
           {/* Logo Area */}
           <div className="flex items-center">
-            <Image src="/images/LogoRM.png" alt="Rodrigues Mansur Logo" width={160} height={48} className="h-14 w-auto object-contain" />
+            <Image src="/images/rm-logo-square.png" alt="Rodrigues Mansur Logo" width={160} height={48} className="h-14 w-auto object-contain" />
             <span className="ml-3 text-sm text-rm-cream/60 font-body">
               Assessoria Administrativa
             </span>
