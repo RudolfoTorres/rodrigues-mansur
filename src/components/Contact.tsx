@@ -1,6 +1,60 @@
 'use client';
 
+import { useState } from 'react';
+
 export function Contact() {
+   const [loading, setLoading] = useState(false);
+   const [status, setStatus] = useState<{
+      type: 'success' | 'error' | null;
+      message: string;
+   }>({ type: null, message: '' });
+
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoading(true);
+      setStatus({ type: null, message: '' });
+
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+
+      const payload = {
+         name: formData.get('name'),
+         email: formData.get('email'),
+         phone: formData.get('phone'),
+         message: formData.get('message'),
+      };
+
+      try {
+         const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+         });
+
+         const data = await res.json();
+
+         if (res.ok && data.success) {
+            setStatus({
+               type: 'success',
+               message: 'Solicitação enviada com sucesso! Entraremos em contato em breve.',
+            });
+            form.reset();
+         } else {
+            setStatus({
+               type: 'error',
+               message: data.error || 'Ocorreu um erro ao enviar. Tente novamente.',
+            });
+         }
+      } catch (err) {
+         setStatus({
+            type: 'error',
+            message: 'Erro de conexão. Verifique sua internet e tente novamente.',
+         });
+      } finally {
+         setLoading(false);
+      }
+   };
+
    return (
       <section id="contato" className="relative py-20 md:py-28 bg-rm-offwhite overflow-hidden">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -18,15 +72,12 @@ export function Contact() {
                      </p>
                   </div>
 
-                  {/* Lista de Contatos com Ícones Hexagonais na Vertical */}
+                  {/* Lista de Contatos */}
                   <div className="space-y-6 pt-2">
-
-                     {/* WhatsApp / Telefone */}
                      <div className="flex items-center gap-4">
                         <div
                            className="w-12 h-12 shrink-0 bg-rm-navy flex items-center justify-center text-rm-gold shadow-md"
                            style={{
-                              /* Clip-path ajustado para Hexágono Vertical (ponta em cima e em baixo) */
                               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                            }}
                         >
@@ -40,12 +91,10 @@ export function Contact() {
                         </div>
                      </div>
 
-                     {/* E-mail */}
                      <div className="flex items-center gap-4">
                         <div
                            className="w-12 h-12 shrink-0 bg-rm-navy flex items-center justify-center text-rm-gold shadow-md"
                            style={{
-                              /* Clip-path ajustado para Hexágono Vertical (ponta em cima e em baixo) */
                               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                            }}
                         >
@@ -58,34 +107,29 @@ export function Contact() {
                            <p className="font-body text-rm-navy/70 text-sm sm:text-base">rmcontabilcm@gmail.com</p>
                         </div>
                      </div>
-
                   </div>
                </div>
 
-
-               {/* ================= COLUNA DIREITA: Form com Moldura Perfeita ================= */}
+               {/* ================= COLUNA DIREITA: Form ================= */}
                <div className="lg:col-span-6 flex justify-center lg:justify-end">
-                  {/* Container Principal com cantos chanfrados aplicados via clipPath */}
                   <div
                      className="relative w-full max-w-md p-8 sm:p-10 bg-rm-white shadow-2xl transition-all"
                      style={{
                         clipPath: 'polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px)'
                      }}
                   >
-                     {/* Borda Dupla SVG ajustada perfeitamente ao tamanho real do card */}
+                     {/* Moldura Vetorial */}
                      <svg
                         className="w-full h-full absolute inset-0 pointer-events-none z-20"
                         viewBox="0 0 100 100"
                         preserveAspectRatio="none"
                      >
-                        {/* Borda Externa - Azul Marinho */}
                         <polygon
                            points="7.5,0.5 92.5,0.5 99.5,7.5 99.5,92.5 92.5,99.5 7.5,99.5 0.5,92.5 0.5,7.5"
                            fill="none"
                            stroke="var(--color-rm-navy, #0A192F)"
                            strokeWidth="2.5"
                         />
-                        {/* Borda Interna - Dourada */}
                         <polygon
                            points="8.5,2 91.5,2 98,8.5 98,91.5 91.5,98 8.5,98 2,91.5 2,8.5"
                            fill="none"
@@ -95,14 +139,15 @@ export function Contact() {
                      </svg>
 
                      {/* Formulário */}
-                     <form className="relative z-10 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                     <form className="relative z-10 space-y-4" onSubmit={handleSubmit}>
                         <div>
                            <label htmlFor="name" className="block text-xs font-bold text-rm-navy mb-1">
-                              Nome Completo
+                              Nome Completo *
                            </label>
                            <input
                               type="text"
                               id="name"
+                              name="name"
                               className="w-full bg-rm-white border border-rm-navy/20 rounded-md py-2.5 px-3.5 text-sm text-rm-navy placeholder-rm-navy/40 focus:outline-none focus:border-rm-navy focus:ring-1 focus:ring-rm-navy transition-colors shadow-xs"
                               placeholder="Seu nome"
                               required
@@ -111,11 +156,12 @@ export function Contact() {
 
                         <div>
                            <label htmlFor="email" className="block text-xs font-bold text-rm-navy mb-1">
-                              E-mail
+                              E-mail *
                            </label>
                            <input
                               type="email"
                               id="email"
+                              name="email"
                               className="w-full bg-rm-white border border-rm-navy/20 rounded-md py-2.5 px-3.5 text-sm text-rm-navy placeholder-rm-navy/40 focus:outline-none focus:border-rm-navy focus:ring-1 focus:ring-rm-navy transition-colors shadow-xs"
                               placeholder="seu@email.com"
                               required
@@ -124,11 +170,12 @@ export function Contact() {
 
                         <div>
                            <label htmlFor="phone" className="block text-xs font-bold text-rm-navy mb-1">
-                              Telefone/WhatsApp
+                              Telefone/WhatsApp *
                            </label>
                            <input
                               type="tel"
                               id="phone"
+                              name="phone"
                               className="w-full bg-rm-white border border-rm-navy/20 rounded-md py-2.5 px-3.5 text-sm text-rm-navy placeholder-rm-navy/40 focus:outline-none focus:border-rm-navy focus:ring-1 focus:ring-rm-navy transition-colors shadow-xs"
                               placeholder="(22) 90000-0000"
                               required
@@ -141,18 +188,39 @@ export function Contact() {
                            </label>
                            <textarea
                               id="message"
+                              name="message"
                               rows={3}
                               className="w-full bg-rm-white border border-rm-navy/20 rounded-md py-2.5 px-3.5 text-sm text-rm-navy placeholder-rm-navy/40 focus:outline-none focus:border-rm-navy focus:ring-1 focus:ring-rm-navy transition-colors resize-none shadow-xs"
                               placeholder="Como podemos te ajudar?"
                            ></textarea>
                         </div>
 
+                        {/* Feedback de Sucesso/Erro */}
+                        {status.message && (
+                           <div
+                              className={`p-3 rounded-md text-xs font-semibold ${status.type === 'success'
+                                    ? 'bg-green-100 text-green-800 border border-green-300'
+                                    : 'bg-red-100 text-red-800 border border-red-300'
+                                 }`}
+                           >
+                              {status.message}
+                           </div>
+                        )}
+
                         <div className="pt-2">
                            <button
                               type="submit"
-                              className="w-full bg-rm-navy hover:bg-rm-navy/90 text-rm-white font-bold py-3 px-6 rounded-md transition-colors shadow-md text-sm uppercase tracking-wider"
+                              disabled={loading}
+                              className="w-full bg-rm-navy hover:bg-rm-navy/90 text-rm-white font-bold py-3 px-6 rounded-md transition-colors shadow-md text-sm uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
                            >
-                              Enviar Solicitação
+                              {loading ? (
+                                 <>
+                                    <span className="w-4 h-4 border-2 border-rm-white border-t-transparent rounded-full animate-spin" />
+                                    Enviando...
+                                 </>
+                              ) : (
+                                 'Enviar Solicitação'
+                              )}
                            </button>
                         </div>
                      </form>
