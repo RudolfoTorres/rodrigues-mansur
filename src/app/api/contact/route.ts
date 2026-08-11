@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         // 3. Tenta enviar o e-mail via Resend
         const { data, error } = await resend.emails.send({
             from: "Site Contato <onboarding@resend.dev>",
-            to: ["rudolfotorres@gmail.com"],
+            to: ["rmcontabilcm@gmail.com"],
             subject: `Novo Contato via Site - ${name}`,
             html: `
         <div style="font-family: sans-serif; padding: 20px; color: #0A192F;">

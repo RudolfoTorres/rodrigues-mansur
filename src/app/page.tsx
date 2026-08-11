@@ -11,8 +11,6 @@ import { Contact } from "@/components/Contact";
 export default function Home() {
   return (
     <main className="flex-grow flex flex-col bg-rm-black overflow-x-hidden">
-      <Header />
-      
       {/* Sections */}
       <div id="inicio"><Hero /></div>
       <div id="sobre"><About /></div>
@@ -21,8 +19,6 @@ export default function Home() {
       {/* <div id="blog"><BlogPreview /></div> */}
       <div id="depoimentos"><Testimonials /></div>
       <div id="contato"><Contact /></div>
-      
-      <Footer />
     </main>
   );
 }
