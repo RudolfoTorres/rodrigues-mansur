@@ -8,17 +8,41 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
+  display: "swap", // Garante carregamento suave da fonte sem FOIT
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Rodrigues Mansur | Assessoria Administrativa",
+  title: "Rodrigues Mansur | Assessoria Administrativa & Contábil",
   description:
     "Tradição em excelência, foco no resultado. Soluções contábeis e administrativas estratégicas para impulsionar o seu negócio.",
+  keywords: [
+    "Rodrigues Mansur",
+    "RM Contábil",
+    "Assessoria Administrativa",
+    "Assessoria Contábil",
+    "Consultoria Fiscal",
+    "Gestão Financeira",
+  ],
+  authors: [{ name: "Rodrigues Mansur" }],
+  openGraph: {
+    title: "Rodrigues Mansur | Assessoria Administrativa & Contábil",
+    description:
+      "Tradição em excelência, foco no resultado. Soluções contábeis e administrativas estratégicas para o seu negócio.",
+    url: "https://www.rodriguesmansur.com.br", // Substitua pelo domínio final
+    siteName: "Rodrigues Mansur",
+    locale: "pt_BR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
