@@ -1,7 +1,5 @@
 'use client';
 
-import { Button } from "./Button";
-
 export function Contact() {
    return (
       <section id="contato" className="relative py-20 md:py-28 bg-rm-offwhite overflow-hidden">
@@ -20,7 +18,7 @@ export function Contact() {
                      </p>
                   </div>
 
-                  {/* Lista de Contatos com Ícones Hexagonais */}
+                  {/* Lista de Contatos com Ícones Hexagonais na Vertical */}
                   <div className="space-y-6 pt-2">
 
                      {/* WhatsApp / Telefone */}
@@ -28,7 +26,8 @@ export function Contact() {
                         <div
                            className="w-12 h-12 shrink-0 bg-rm-navy flex items-center justify-center text-rm-gold shadow-md"
                            style={{
-                              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
+                              /* Clip-path ajustado para Hexágono Vertical (ponta em cima e em baixo) */
+                              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                            }}
                         >
                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +45,8 @@ export function Contact() {
                         <div
                            className="w-12 h-12 shrink-0 bg-rm-navy flex items-center justify-center text-rm-gold shadow-md"
                            style={{
-                              clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
+                              /* Clip-path ajustado para Hexágono Vertical (ponta em cima e em baixo) */
+                              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
                            }}
                         >
                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,31 +63,34 @@ export function Contact() {
                </div>
 
 
-               {/* ================= COLUNA DIREITA: Form com Moldura Cantos Cortados ================= */}
+               {/* ================= COLUNA DIREITA: Form com Moldura Perfeita ================= */}
                <div className="lg:col-span-6 flex justify-center lg:justify-end">
-                  <div className="relative w-full max-w-md p-6 sm:p-8 bg-rm-white shadow-xl">
-
-                     {/* Moldura Vetorial de Borda Dupla com Cantos Cortados */}
+                  {/* Container Principal com cantos chanfrados aplicados via clipPath */}
+                  <div
+                     className="relative w-full max-w-md p-8 sm:p-10 bg-rm-white shadow-2xl transition-all"
+                     style={{
+                        clipPath: 'polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px)'
+                     }}
+                  >
+                     {/* Borda Dupla SVG ajustada perfeitamente ao tamanho real do card */}
                      <svg
+                        className="w-full h-full absolute inset-0 pointer-events-none z-20"
                         viewBox="0 0 100 100"
-                        className="w-full h-full absolute inset-0 pointer-events-none overflow-visible"
                         preserveAspectRatio="none"
                      >
-                        {/* Borda Exterior - Azul Marinho */}
+                        {/* Borda Externa - Azul Marinho */}
                         <polygon
-                           points="12,0 88,0 100,12 100,88 88,100 12,100 0,88 0,12"
+                           points="7.5,0.5 92.5,0.5 99.5,7.5 99.5,92.5 92.5,99.5 7.5,99.5 0.5,92.5 0.5,7.5"
                            fill="none"
                            stroke="var(--color-rm-navy, #0A192F)"
                            strokeWidth="2.5"
-                           strokeLinejoin="round"
                         />
-                        {/* Borda Interior - Dourado */}
+                        {/* Borda Interna - Dourada */}
                         <polygon
-                           points="13,1.5 87,1.5 98.5,13 98.5,87 87,98.5 13,98.5 1.5,87 1.5,13"
+                           points="8.5,2 91.5,2 98,8.5 98,91.5 91.5,98 8.5,98 2,91.5 2,8.5"
                            fill="none"
                            stroke="var(--color-rm-gold, #C5A059)"
                            strokeWidth="1.5"
-                           strokeLinejoin="round"
                         />
                      </svg>
 

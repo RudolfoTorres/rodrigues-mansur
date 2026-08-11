@@ -37,12 +37,14 @@ export function Hero() {
 
             {/* Botões de Ação */}
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Button
-                variant="primary"
-                className="!bg-rm-navy !text-rm-white hover:!bg-rm-navy-dark !px-8 !py-4 text-sm font-semibold uppercase tracking-wider rounded-md transition-all shadow-md hover:shadow-lg font-heading"
-              >
-                Conheça Nossas Soluções
-              </Button>
+              <a href="#servicos" className="w-full sm:w-auto">
+                <Button
+                  variant="primary"
+                  className="!bg-rm-navy !text-rm-white hover:!bg-rm-navy-dark !px-8 !py-4 text-sm font-semibold uppercase tracking-wider rounded-md transition-all shadow-md hover:shadow-lg font-heading w-full"
+                >
+                  Conheça Nossas Soluções
+                </Button>
+              </a>
 
               <a
                 href="#contato"
@@ -74,14 +76,13 @@ export function Hero() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-md p-8 bg-rm-white rounded-2xl shadow-xl border border-rm-gold/20 backdrop-blur-sm">
 
-              {/* Hexágono da Logo (Sem borda/fundo externo e ampliado) */}
+              {/* Hexágono da Logo */}
               <div className="absolute -top-4 -right-4 w-14 h-14">
                 <svg
                   viewBox="0 0 100 100"
                   className="w-full h-full drop-shadow-sm"
                   preserveAspectRatio="xMidYMid meet"
                 >
-                  {/* 1. Novo Hexágono Mais Externo - Azul Marinho */}
                   <polygon
                     points="50,2 96,25 96,75 50,98 4,75 4,25"
                     fill="none"
@@ -89,8 +90,6 @@ export function Hero() {
                     strokeWidth="4"
                     strokeLinejoin="round"
                   />
-
-                  {/* 2. Hexágono Intermediário - Dourado */}
                   <polygon
                     points="50,11 87,30 87,70 50,89 13,70 13,30"
                     fill="none"
@@ -98,8 +97,6 @@ export function Hero() {
                     strokeWidth="5"
                     strokeLinejoin="round"
                   />
-
-                  {/* 3. Hexágono Interno - Azul Marinho (Seus pontos ajustados) */}
                   <polygon
                     points="50,20 78,35 78,65 50,80 22,65 22,35"
                     fill="none"
