@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Testimonial {
   text: string;
@@ -22,14 +22,43 @@ export function Testimonials() {
       author: "Yang Ouverney Salerno",
       role: "Diretor e CEO, Shopping Rural",
       imageUrl: "/images/testimonials/shopping-rural.jpg"
-    },
-    {
-      text: "Consultoria estratégica de alto nível. Com o planejamento societário que desenvolveram para nós, obtivemos benefícios visíveis desde o primeiro semestre.",
-      author: "Eduardo Ribeiro",
-      role: "Sócio Fundador, Ribeiro Arquitetos",
-      imageUrl: "/images/testimonials/eduardo.jpg"
     }
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const itemsPerPage = isMobile ? 1 : 3;
+  const isCarouselActive = testimonials.length > itemsPerPage;
+  const maxIndex = Math.max(0, testimonials.length - itemsPerPage);
+
+  useEffect(() => {
+    if (!isCarouselActive || isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [isCarouselActive, isPaused, maxIndex]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
 
   return (
     <section className="bg-rm-cream py-24 relative overflow-hidden">
@@ -46,11 +75,67 @@ export function Testimonials() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          {testimonials.map((test, idx) => (
-            <TestimonialCard key={idx} test={test} />
-          ))}
+        {/* Outer Container com Overflow Hidden estrito */}
+        <div
+          className="w-full overflow-hidden"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Slider Track - Deslocamento com cálculo exato de gap (32px / 2rem) */}
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              gap: "2rem",
+              transform: isMobile
+                ? `translateX(calc(-${currentIndex} * (100% + 2rem)))`
+                : `translateX(calc(-${currentIndex} * (33.333% + 0.66rem)))`
+            }}
+          >
+            {testimonials.map((test, idx) => (
+              <div
+                key={idx}
+                className="w-full shrink-0 md:w-[calc(33.333%-1.33rem)] box-border"
+              >
+                <TestimonialCard test={test} />
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Controles do Carrossel */}
+        {isCarouselActive && (
+          <div className="flex items-center justify-center gap-6 mt-12">
+            <button
+              onClick={handlePrev}
+              aria-label="Anterior"
+              className="w-10 h-10 rounded-full border border-rm-navy/20 flex items-center justify-center text-rm-navy hover:bg-rm-navy hover:text-rm-gold transition-colors"
+            >
+              ←
+            </button>
+
+            <div className="flex gap-2">
+              {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Ir para slide ${idx + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${currentIndex === idx
+                      ? "w-8 bg-rm-gold"
+                      : "w-2.5 bg-rm-navy/20 hover:bg-rm-navy/40"
+                    }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={handleNext}
+              aria-label="Próximo"
+              className="w-10 h-10 rounded-full border border-rm-navy/20 flex items-center justify-center text-rm-navy hover:bg-rm-navy hover:text-rm-gold transition-colors"
+            >
+              →
+            </button>
+          </div>
+        )}
 
       </div>
     </section>
@@ -62,7 +147,6 @@ function TestimonialCard({ test }: { test: Testimonial }) {
   const [imgError, setImgError] = useState(false);
   const isLongText = test.text.length > 220;
 
-  // Extrai as iniciais caso precise do fallback
   const initials = test.author
     .split(" ")
     .map((n) => n[0])
@@ -73,11 +157,11 @@ function TestimonialCard({ test }: { test: Testimonial }) {
     <div className="bg-white p-8 rounded-2xl shadow-xl shadow-black/5 flex flex-col justify-between h-full border border-black/5 hover:-translate-y-2 transition-transform duration-300">
       <div>
 
-        {/* TOPO DO CARD: Foto + Nome/Cargo + Aspas */}
+        {/* TOPO DO CARD */}
         <div className="flex items-center justify-between gap-4 pb-6 mb-6 border-b border-black/10">
           <div className="flex items-center gap-4">
 
-            {/* Avatar Maior e Sem Sobreposição */}
+            {/* Avatar */}
             <div className="w-16 h-16 rounded-full overflow-hidden bg-rm-cream border-2 border-rm-gold/40 shrink-0 flex items-center justify-center font-heading font-bold text-rm-blue text-base shadow-sm relative">
               {test.imageUrl && !imgError ? (
                 <img
@@ -102,13 +186,12 @@ function TestimonialCard({ test }: { test: Testimonial }) {
             </div>
           </div>
 
-          {/* Aspas em Destaque */}
           <span className="text-rm-gold text-4xl font-serif font-bold leading-none select-none opacity-80 self-start">
             “
           </span>
         </div>
 
-        {/* CORPO DO CARD: Depoimento */}
+        {/* CORPO DO CARD */}
         <p className={`text-rm-black/80 font-body text-base leading-relaxed italic transition-all duration-300 ${!isExpanded && isLongText ? "line-clamp-6" : ""}`}>
           {test.text}
         </p>
