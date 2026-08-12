@@ -30,7 +30,7 @@ export function Differentials() {
           {/* Text Content - Original */}
           <div className="flex-1 w-full lg:w-1/2">
             <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-rm-black mb-8 leading-tight">
-              O Diferencial <br />
+              O Diferencial da<br />
               <span className="text-rm-blue border-b-4 border-rm-gold pb-1 inline-block mt-2">Rodrigues Mansur</span>
             </h2>
 

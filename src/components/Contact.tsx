@@ -64,7 +64,7 @@ export function Contact() {
                <div className="lg:col-span-6 space-y-8">
                   <div className="space-y-4">
                      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-rm-navy tracking-tight font-heading leading-tight">
-                        Agende sua Reunião do <br />
+                        Agende sua Reunião de <br />
                         <span className="text-rm-navy">Diagnóstico Gratuita</span>
                      </h2>
                      <p className="text-base sm:text-lg text-rm-navy/80 leading-relaxed font-normal max-w-xl">
@@ -199,8 +199,8 @@ export function Contact() {
                         {status.message && (
                            <div
                               className={`p-3 rounded-md text-xs font-semibold ${status.type === 'success'
-                                    ? 'bg-green-100 text-green-800 border border-green-300'
-                                    : 'bg-red-100 text-red-800 border border-red-300'
+                                 ? 'bg-green-100 text-green-800 border border-green-300'
+                                 : 'bg-red-100 text-red-800 border border-red-300'
                                  }`}
                            >
                               {status.message}
