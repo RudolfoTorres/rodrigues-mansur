@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Rodrigues Mansur | Assessoria Administrativa & Contábil",
   description:
     "Tradição em excelência, foco no resultado. Soluções contábeis e administrativas estratégicas para impulsionar o seu negócio.",
+  icons: {
+    icon: "/images/favicon.ico",
+  },
   keywords: [
     "Rodrigues Mansur",
     "RM Contábil",
