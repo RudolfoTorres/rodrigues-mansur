@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface Testimonial {
   text: string;
@@ -28,6 +28,13 @@ export function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Estados para gerenciar o toque (Swipe)
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Distância mínima em pixels para considerar um swipe válido
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,6 +67,31 @@ export function Testimonials() {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
+  // Funções de captura de gesto de toque (Swipe)
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+    setIsPaused(true); // Pausa o autoplay enquanto o usuário interage
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+    setIsPaused(false);
+  };
+
   return (
     <section className="bg-rm-cream py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-rm-gold/5 rounded-full blur-[120px] pointer-events-none" />
@@ -75,13 +107,15 @@ export function Testimonials() {
           </h2>
         </div>
 
-        {/* Outer Container com Overflow Hidden estrito */}
+        {/* Container com os eventos de touch aplicados */}
         <div
-          className="w-full overflow-hidden"
+          className="w-full overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          {/* Slider Track - Deslocamento com cálculo exato de gap (32px / 2rem) */}
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
@@ -94,7 +128,7 @@ export function Testimonials() {
             {testimonials.map((test, idx) => (
               <div
                 key={idx}
-                className="w-full shrink-0 md:w-[calc(33.333%-1.33rem)] box-border"
+                className="w-full shrink-0 md:w-[calc(33.333%-1.33rem)] box-border select-none"
               >
                 <TestimonialCard test={test} />
               </div>
@@ -157,17 +191,15 @@ function TestimonialCard({ test }: { test: Testimonial }) {
     <div className="bg-white p-8 rounded-2xl shadow-xl shadow-black/5 flex flex-col justify-between h-full border border-black/5 hover:-translate-y-2 transition-transform duration-300">
       <div>
 
-        {/* TOPO DO CARD */}
         <div className="flex items-center justify-between gap-4 pb-6 mb-6 border-b border-black/10">
           <div className="flex items-center gap-4">
 
-            {/* Avatar */}
             <div className="w-16 h-16 rounded-full overflow-hidden bg-rm-cream border-2 border-rm-gold/40 shrink-0 flex items-center justify-center font-heading font-bold text-rm-blue text-base shadow-sm relative">
               {test.imageUrl && !imgError ? (
                 <img
                   src={test.imageUrl}
                   alt={test.author}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover pointer-events-none"
                   onError={() => setImgError(true)}
                 />
               ) : (
@@ -175,7 +207,6 @@ function TestimonialCard({ test }: { test: Testimonial }) {
               )}
             </div>
 
-            {/* Informações da Pessoa */}
             <div>
               <h4 className="font-heading font-bold text-rm-black text-base sm:text-lg leading-snug">
                 {test.author}
@@ -191,15 +222,16 @@ function TestimonialCard({ test }: { test: Testimonial }) {
           </span>
         </div>
 
-        {/* CORPO DO CARD */}
         <p className={`text-rm-black/80 font-body text-base leading-relaxed italic transition-all duration-300 ${!isExpanded && isLongText ? "line-clamp-6" : ""}`}>
           {test.text}
         </p>
 
-        {/* Botão de Expansão */}
         {isLongText && (
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={(e) => {
+              e.stopPropagation(); // Evita conflito com o arraste
+              setIsExpanded(!isExpanded);
+            }}
             className="mt-4 text-xs font-heading font-bold text-rm-blue hover:text-rm-gold-dark uppercase tracking-wider transition-colors inline-flex items-center gap-1 focus:outline-none"
           >
             {isExpanded ? "Ler menos ↑" : "Ler mais ↓"}
