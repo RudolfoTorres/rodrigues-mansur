@@ -13,7 +13,7 @@ export function Testimonials() {
   const testimonials: Testimonial[] = [
     {
       text: "Contar com a RM Contábil para cuidar da minha declaração de Imposto de Renda foi uma ótima escolha. O atendimento é sempre atencioso, profissional e, acima de tudo, transmite muita confiança. Toda a orientação é feita de forma clara e cuidadosa, o que torna um processo que poderia ser complicado, muito mais simples e tranquilo. Fico muito satisfeita em saber que posso contar com uma equipe competente e responsável para cuidar de tudo com segurança. Recomendo a RM Contábil pela excelência no atendimento e pela confiança que transmite!",
-      author: "Thaís Alves Pereira Cardoso",
+      author: "Thays Alves Pereira Cardoso",
       role: "Cliente Imposto de Renda",
       imageUrl: "/images/testimonials/thays-alves.png"
     },
@@ -33,7 +33,6 @@ export function Testimonials() {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Distância mínima em pixels para considerar um swipe válido
   const minSwipeDistance = 50;
 
   useEffect(() => {
@@ -67,11 +66,10 @@ export function Testimonials() {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
-  // Funções de captura de gesto de toque (Swipe)
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
-    setIsPaused(true); // Pausa o autoplay enquanto o usuário interage
+    setIsPaused(true);
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
@@ -107,17 +105,18 @@ export function Testimonials() {
           </h2>
         </div>
 
-        {/* Container com os eventos de touch aplicados */}
+        {/* Container com eventos de touch */}
         <div
-          className="w-full overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y"
+          className="w-full overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y py-4"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
+          {/* Adicionado items-start para evitar o alinhamento stretch */}
           <div
-            className="flex transition-transform duration-500 ease-in-out"
+            className="flex items-start transition-transform duration-500 ease-in-out"
             style={{
               gap: "2rem",
               transform: isMobile
@@ -188,7 +187,8 @@ function TestimonialCard({ test }: { test: Testimonial }) {
     .join("");
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-xl shadow-black/5 flex flex-col justify-between h-full border border-black/5 hover:-translate-y-2 transition-transform duration-300">
+    /* Removido o h-full para que o card cresça de forma totalmente auto-contida */
+    <div className="bg-white p-8 rounded-2xl shadow-xl shadow-black/5 flex flex-col justify-between border border-black/5 hover:-translate-y-2 transition-transform duration-300">
       <div>
 
         <div className="flex items-center justify-between gap-4 pb-6 mb-6 border-b border-black/10">
@@ -229,7 +229,7 @@ function TestimonialCard({ test }: { test: Testimonial }) {
         {isLongText && (
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Evita conflito com o arraste
+              e.stopPropagation();
               setIsExpanded(!isExpanded);
             }}
             className="mt-4 text-xs font-heading font-bold text-rm-blue hover:text-rm-gold-dark uppercase tracking-wider transition-colors inline-flex items-center gap-1 focus:outline-none"
