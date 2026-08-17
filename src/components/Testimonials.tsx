@@ -22,7 +22,25 @@ export function Testimonials() {
       author: "Yang Ouverney Salerno",
       role: "Diretor e CEO, Shopping Rural",
       imageUrl: "/images/testimonials/shopping-rural.jpg"
-    }
+    },
+    {
+      text: "É com satisfação que o Conselho Diretor do Instituto de Ação Socioambiental — ASA reconhece o trabalho desenvolvido pela RM Assessoria Administrativa e Contábil. A parceria tem sido marcada pelo profissionalismo, responsabilidade e comprometimento com as necessidades da nossa instituição. Destacamos especialmente a atenção dedicada à organização contábil, à qualidade das informações apresentadas e ao suporte prestado nas demandas do dia a dia. A atuação da RM Assessoria tem contribuído para que o ASA tenha maior segurança e clareza na condução de suas obrigações contábeis e administrativas, sempre com atendimento próximo, transparente e responsável. Agradecemos à equipe da RM Assessoria pelo compromisso e pela parceria, e recomendamos seus serviços pela seriedade, competência e dedicação demonstradas ao longo do nosso trabalho conjunto.",
+      author: "Instituto de Ação Socioambiental",
+      role: "Conselho Diretor, ASA",
+      imageUrl: "/images/testimonials/asa.jpeg"
+    },
+    {
+      text: "Contar com a RM Assessoria Administrativa e Contábil tem sido uma experiência muito positiva para a nossa empresa. Desde o início da parceria, encontramos uma equipe comprometida, atenciosa e, principalmente, preocupada em entender as necessidades do nosso negócio. A qualidade do atendimento, a agilidade nas respostas e a segurança nas orientações contábeis e fiscais nos proporcionam muito mais tranquilidade para tomar decisões e conduzir nossa empresa. Destaco também a proximidade e a disponibilidade da RM Assessoria, que vai além de simplesmente cumprir obrigações contábeis. Existe uma verdadeira preocupação em orientar e contribuir para a organização e o crescimento da empresa. Tenho confiança em recomendar a RM Assessoria pela seriedade, competência e comprometimento demonstrados no trabalho que desenvolvemos juntos.",
+      author: "Fábio Marcellus Velloso",
+      role: "Diretor, F. Veloso",
+      imageUrl: "/images/testimonials/fveloso.jpeg"
+    },
+      {
+      text: "Sempre fui muito bem orientada e tenho muita confiança no trabalho de vocês. Profissionais extremamente competentes, responsáveis e sempre dispostos a esclarecer tudo com muita atenção e transparência. É bom saber que posso contar com o escritório, vocês são atenciosos e realmente se preocupam com o cliente. Recomendo de coração!",
+      author: "Camilly V. Jubran Guedes",
+      role: "Cliente de Imposto de Renda",
+      imageUrl: "/images/testimonials/Camily.jpeg"
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
