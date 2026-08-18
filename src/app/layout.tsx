@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -85,6 +86,9 @@ export default function RootLayout({
 
         {/* Botão Flutuante de Voltar ao Topo */}
         <ScrollToTop />
+
+        {/* Google Analytics GA4 */}
+        <GoogleAnalytics gaId="G-X60YDN88MT" />
       </body>
     </html>
   );
